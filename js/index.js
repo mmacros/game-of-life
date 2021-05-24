@@ -12,23 +12,47 @@ Promise.all([
     const width = universe.width();
     const height = universe.height();
 
-// Give the canvas room for all of our cells and a 1px border
-// around each of them.
     const canvas = document.getElementById("game-of-life-canvas");
     canvas.height = (CELL_SIZE + 1) * height + 1;
     canvas.width = (CELL_SIZE + 1) * width + 1;
 
     const ctx = canvas.getContext('2d');
+    let animationId = null;
 
     const renderLoop = () => {
-        universe.tick();
-
         drawGrid();
         drawCells();
-
-        requestAnimationFrame(renderLoop);
+        universe.tick();
+        animationId = requestAnimationFrame(renderLoop);
     };
 
+    const isPaused = () => {
+        return animationId === null;
+    };
+
+    const playPauseButton = document.getElementById("play-pause");
+
+    const play = () => {
+        playPauseButton.textContent = "⏸";
+        renderLoop();
+    };
+
+    const pause = () => {
+        playPauseButton.textContent = "▶";
+        cancelAnimationFrame(animationId);
+        animationId = null;
+    };
+
+    playPauseButton.addEventListener("click", event => {
+        if (isPaused()) {
+            play();
+        } else {
+            pause();
+        }
+    });
+
+// Give the canvas room for all of our cells and a 1px border
+// around each of them.
     const drawGrid = () => {
         ctx.beginPath();
         ctx.strokeStyle = GRID_COLOR;
@@ -80,6 +104,6 @@ Promise.all([
 
     drawGrid();
     drawCells();
-    requestAnimationFrame(renderLoop);
+    play();
 }).catch(console.error)
 
