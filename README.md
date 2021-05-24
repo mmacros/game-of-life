@@ -5,7 +5,16 @@ This example is based on the [rustwasm book](https://rustwasm.github.io/book/) e
 
 ## How to install
 
+First you must have installed Rust, you can do it from the [Rust-lang page](https://www.rust-lang.org/learn/get-started),
+and [Node.js](https://nodejs.org/).
+Once installed, you must install the Rust Wasm Pack, you can download it from the [rust-wasm page](https://rustwasm.github.io/wasm-pack/installer/).
+Then run:
+
 ```sh
+# install Cargo generate if not installed
+cargo install cargo-generate
+
+#install node.js modules
 npm install
 ```
 
