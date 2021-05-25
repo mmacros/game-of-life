@@ -1,3 +1,5 @@
+mod timer;
+
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 use std::fmt;
@@ -44,7 +46,7 @@ impl Cell {
 pub struct Universe {
     width: u32,
     height: u32,
-    cells: Vec<Cell>,
+    cells: Vec<Cell>
 }
 
 #[wasm_bindgen]
@@ -88,6 +90,7 @@ impl Universe {
     }
 
     pub fn tick(&mut self) {
+        let _timer = timer::Timer::new("Universe::tick");
         let mut next = self.cells.clone();
 
         for row in 0..self.height {
@@ -116,7 +119,6 @@ impl Universe {
                 next[idx] = next_cell;
             }
         }
-
         self.cells = next;
     }
     pub fn new() -> Universe {
