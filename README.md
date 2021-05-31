@@ -16,6 +16,9 @@ cargo install cargo-generate
 
 #install node.js modules
 npm install
+
+#use cargo build to pull all dependencies
+cargo build
 ```
 
 ## How to run in debug mode
